@@ -37,6 +37,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         varNome.setText(usuario.getNome());
         varLogin.setText(usuario.getLogin());
         pesquisarPerfilCombobox();
+        varComboPerfil.setSelectedItem(usuario.getPerfil().getNome());
     }
 
     private void pesquisarPerfilCombobox() {
@@ -148,26 +149,23 @@ public class CadastroUsuario extends javax.swing.JFrame {
         if (usuario == null) {
             usuario = new Usuario();
             usuario.setSenha("12345");
-            int linhaSelecionada = varComboPerfil.getSelectedIndex();
-            Perfil perfil = perfis.get(--linhaSelecionada);
-            usuario.setPerfil(perfil);
         }
+        int linhaSelecionada = varComboPerfil.getSelectedIndex();
+        Perfil perfil = perfis.get(--linhaSelecionada);
+        usuario.setPerfil(perfil);
         usuario.setNome(varNome.getText().trim());
         usuario.setLogin(varLogin.getText().trim());
 
         try {
             if (usuario.getId() == null) {
                 usuarioDao.salvar(usuario);
-                varComboPerfil.removeAllItems();
-                carregarComboPerfil(perfis);
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!!");
             } else {
                 usuarioDao.alterar(usuario);
                 JOptionPane.showMessageDialog(null, "Alterado com sucesso!!");
             }
-
             limparFormulario();
-
+            dispose();
         } catch (Exception e) {
             System.out.println("Erro ao salvar usuário " + e.getMessage());
         }
@@ -176,6 +174,8 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private void limparFormulario() {
         varNome.setText(null);
         varLogin.setText(null);
+        varComboPerfil.removeAllItems();
+        carregarComboPerfil(perfis);
     }
 
     public static void main(String args[]) {

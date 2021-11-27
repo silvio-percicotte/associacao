@@ -10,8 +10,6 @@ import br.com.senai.dao.UsuarioDaoImpl;
 import br.com.senai.entidade.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
